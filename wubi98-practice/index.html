@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="五笔 98 字根练习工具 - 交互式学习字根键位">
+  <title>五笔 98 字根练习</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1>五笔 98 字根练习</h1>
+    <div class="header-controls">
+      <select id="categorySelect" class="btn btn-secondary">
+        <option value="all">全部字根</option>
+        <option value="键名字">键名字</option>
+        <option value="横区">横区</option>
+        <option value="竖区">竖区</option>
+        <option value="撇区">撇区</option>
+        <option value="捺区">捺区</option>
+        <option value="折区">折区</option>
+        <option value="全部字根">全部字根</option>
+        <option value="一级简码">一级简码</option>
+        <option value="繁体字根">繁体字根</option>
+      </select>
+      <button id="modeToggle" class="btn btn-secondary">模式：全部练习</button>
+      <button id="pauseBtn" class="btn btn-secondary" disabled>暂停</button>
+      <button id="statsBtn" class="btn btn-secondary">统计</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="practice-container">
+      <div id="practiceArea">
+        <!-- 练习内容动态加载 -->
+      </div>
+    </section>
+
+    <aside class="stats-panel" id="statsPanel">
+      <h3>📊 学习统计</h3>
+      
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="label">总练习次数</div>
+          <div class="value" id="totalPractices">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">正确率</div>
+          <div class="value" id="accuracy">0%</div>
+        </div>
+      </div>
+
+      <div class="mastery-status">
+        <div class="mastery-item mastered">
+          <div class="count" id="masteredCount">0</div>
+          <div class="label">已掌握</div>
+        </div>
+        <div class="mastery-item need-review">
+          <div class="count" id="needReviewCount">0</div>
+          <div class="label">需复习</div>
+        </div>
+      </div>
+
+      <div class="error-list">
+        <h4 style="margin: 1rem 0 0.5rem; color: #2d3748;">🔴 Top 5 错误字根</h4>
+        <div id="topErrors">
+          <p class="empty">暂无错题</p>
+        </div>
+      </div>
+
+      <div class="reset-section">
+        <button id="resetStats" class="btn btn-danger">重置统计数据</button>
+      </div>
+    </aside>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

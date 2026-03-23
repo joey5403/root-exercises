@@ -1,0 +1,395 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部导航栏 */
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.header-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.header-controls select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+}
+
+.header-controls select:hover {
+  border-color: #667eea;
+}
+
+/* 按钮样式 */
+.btn {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #667eea;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #5568d3;
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e0;
+}
+
+.btn-danger {
+  background: #fc8181;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #f56565;
+}
+
+/* 主内容区 */
+.main-content {
+  flex: 1;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 练习区域 */
+.practice-container {
+  flex: 2;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+#practiceArea {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 开始屏幕 */
+.start-screen {
+  text-align: center;
+}
+
+.start-screen h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.start-screen p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.start-screen .btn {
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+}
+
+/* 题目显示 */
+.question {
+  text-align: center;
+  width: 100%;
+}
+
+.radical-image {
+  margin-bottom: 1.5rem;
+}
+
+.radical-image img {
+  max-width: 300px;
+  max-height: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 反馈信息 */
+.feedback {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  min-height: 60px;
+}
+
+.feedback.correct {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.feedback.wrong {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+.hint {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* 暂停遮罩 */
+.pause-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.pause-overlay h3 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* 无题目消息 */
+.no-questions {
+  text-align: center;
+}
+
+.no-questions h3 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.no-questions p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* 统计面板 */
+.stats-panel {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-width: 350px;
+}
+
+.stats-panel h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* 统计卡片 */
+.stat-card {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat-card .label {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-bottom: 0.25rem;
+}
+
+.stat-card .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+/* 错误列表 */
+.error-list {
+  margin-top: 1rem;
+}
+
+.error-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #fff5f5;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.error-item .key {
+  background: #fc8181;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.error-item .name {
+  flex: 1;
+  margin-left: 0.75rem;
+  color: #2d3748;
+}
+
+.error-item .count {
+  color: #e53e3e;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.error-list .empty {
+  text-align: center;
+  color: #718096;
+  padding: 1rem;
+}
+
+/* 掌握状态 */
+.mastery-status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.mastery-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.mastery-item.mastered {
+  background: #c6f6d5;
+}
+
+.mastery-item.need-review {
+  background: #fed7d7;
+}
+
+.mastery-item .count {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.mastery-item .label {
+  font-size: 0.8rem;
+  color: #4a5568;
+}
+
+/* 重置按钮 */
+.reset-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.reset-section .btn {
+  width: 100%;
+}
+
+/* 工具栏 */
+.toolbar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* 隐藏类 */
+.hidden {
+  display: none !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 900px) {
+  .main-content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .stats-panel {
+    max-width: 100%;
+  }
+  
+  .radical-image img {
+    max-width: 200px;
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .header-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+}
