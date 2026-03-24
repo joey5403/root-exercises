@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="五笔 98 字根打字游戏 - 游戏化学习字根键位">
+  <title>五笔 98 字根打字游戏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1>🎮 字根打字游戏</h1>
+    <div class="header-controls">
+      <a href="index.html" class="btn btn-secondary">返回练习</a>
+      <a href="https://github.com/joey5403/root-exercises" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+    </div>
+  </header>
+
+  <div class="usage-instruction">
+    <p>字根从上方掉落，在落地前输入对应键位！错误会记录在案，游戏结束后查看统计报告。</p>
+  </div>
+
+  <main class="main-content">
+    <section class="game-container">
+      <div class="game-header">
+        <div class="game-info">
+          <div class="info-item">
+            <span class="label">⏱️ 剩余时间</span>
+            <span class="value" id="timer">03:00</span>
+          </div>
+          <div class="info-item">
+            <span class="label">✓ 正确</span>
+            <span class="value" id="correctCount">0</span>
+          </div>
+          <div class="info-item">
+            <span class="label">✗ 错误</span>
+            <span class="value" id="errorCount">0</span>
+          </div>
+          <div class="info-item">
+            <span class="label">🎯 活跃</span>
+            <span class="value" id="activeCount">0/5</span>
+          </div>
+        </div>
+        <div class="game-controls">
+          <button id="startBtn" class="btn btn-primary">开始游戏</button>
+          <button id="pauseBtn" class="btn btn-secondary" disabled>暂停</button>
+          <button id="quitBtn" class="btn btn-danger">退出</button>
+        </div>
+      </div>
+
+      <div id="gameCanvas" class="game-canvas">
+        <div class="start-screen" id="startScreen">
+          <h2>准备好了吗？</h2>
+          <p>字根将从上方掉落，输入对应的键位消除它们</p>
+          
+          <div class="config-panel" id="configPanel">
+            <div class="config-item">
+              <label for="configDuration">⏱️ 游戏时长（分钟）</label>
+              <input type="number" id="configDuration" min="1" max="30" value="3">
+              <span class="config-hint">1-30 分钟</span>
+            </div>
+            <div class="config-item">
+              <label for="configMaxRadicals">🎯 最大字根数</label>
+              <input type="number" id="configMaxRadicals" min="1" max="10" value="5">
+              <span class="config-hint">1-10 个</span>
+            </div>
+            <div class="config-item">
+              <label for="configFallSpeed">⬇️ 下落速度（像素/帧）</label>
+              <input type="number" id="configFallSpeed" min="1" max="10" value="2">
+              <span class="config-hint">1-10，越大越快</span>
+            </div>
+            <div class="config-item">
+              <label for="configSpawnDelay">⏲️ 生成延迟（毫秒）</label>
+              <input type="number" id="configSpawnDelay" min="500" max="5000" step="100" value="1000">
+              <span class="config-hint">500-5000ms</span>
+            </div>
+            <button id="resetConfigBtn" class="btn btn-secondary btn-small">恢复默认</button>
+          </div>
+          
+          <button id="startBtnLarge" class="btn btn-primary btn-large">开始游戏</button>
+        </div>
+        <div id="gameArea" class="game-area"></div>
+        <div id="resultPanel" class="result-panel hidden">
+          <h2>游戏结束</h2>
+          <div class="result-summary">
+            <div class="result-stat">
+              <div class="stat-label">正确率</div>
+              <div class="stat-value" id="resultAccuracy">0%</div>
+            </div>
+            <div class="result-stat">
+              <div class="stat-label">评分</div>
+              <div class="stat-value" id="resultGrade">-</div>
+            </div>
+            <div class="result-stat">
+              <div class="stat-label">正确</div>
+              <div class="stat-value" id="resultCorrect">0</div>
+            </div>
+            <div class="result-stat">
+              <div class="stat-label">错误</div>
+              <div class="stat-value" id="resultErrors">0</div>
+            </div>
+          </div>
+          <div class="result-details">
+            <h3>🔴 错误列表</h3>
+            <div id="errorList" class="error-list-scroll">
+              <p class="empty">暂无错误</p>
+            </div>
+            <h3>⭐ 最常错字根</h3>
+            <div id="topErrorRadicals" class="top-error-radicals">
+              <p class="empty">暂无数据</p>
+            </div>
+          </div>
+          <div class="result-actions">
+            <button id="restartBtn" class="btn btn-primary">再来一局</button>
+            <button id="backBtn" class="btn btn-secondary">返回主页</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="links-section">
+      <h4>友情链接</h4>
+      <div class="friend-links">
+        <a href="https://wubi98.github.io/" target="_blank" rel="noopener noreferrer" class="friend-link">五笔小筑</a>
+        <a href="http://98wb.ysepan.com/" target="_blank" rel="noopener noreferrer" class="friend-link">98 五笔资源库</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
