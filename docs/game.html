@@ -74,6 +74,16 @@
               <input type="number" id="configSpawnDelay" min="500" max="5000" step="100" value="1000">
               <span class="config-hint">500-5000ms</span>
             </div>
+            <div class="config-item">
+              <label for="volumeSlider">🔊 音量</label>
+              <input type="range" id="volumeSlider" min="0" max="100" value="100">
+              <span class="config-hint" id="volumeValue">100%</span>
+            </div>
+            <div class="config-item">
+              <label for="keyHintToggle">💡 显示键位提示</label>
+              <input type="checkbox" id="keyHintToggle">
+              <span class="config-hint">初学者建议开启</span>
+            </div>
             <button id="resetConfigBtn" class="btn btn-secondary btn-small">恢复默认</button>
           </div>
           
@@ -130,6 +140,7 @@
   </footer>
 
   <script src="data.js"></script>
+  <script src="src/audio/AudioManager.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

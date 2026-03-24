@@ -7,7 +7,10 @@ const defaultConfig = {
   maxRadicals: 5,          // 最大同时掉落数
   fallSpeed: 2,            // 下落速度（像素/帧）
   spawnDelay: 1000,        // 新字根生成延迟（毫秒）
-  radicalSize: { width: 60, height: 60 }  // 字根图片尺寸
+  radicalSize: { width: 60, height: 60 },  // 字根图片尺寸
+  enableSoundEffects: true,  // 音效开关
+  enableMultiRadical: true,  // 多字根模式开关
+  enableKeyHint: false     // 键位提示开关（默认关闭）
 };
 
 // 当前游戏配置（从 defaultConfig 或 localStorage 加载）
@@ -76,11 +79,13 @@ function updateConfigUI() {
   const maxRadicalsEl = document.getElementById('configMaxRadicals');
   const fallSpeedEl = document.getElementById('configFallSpeed');
   const spawnDelayEl = document.getElementById('configSpawnDelay');
+  const keyHintToggleEl = document.getElementById('keyHintToggle');
   
   if (durationEl) durationEl.value = gameConfig.duration / 60000;
   if (maxRadicalsEl) maxRadicalsEl.value = gameConfig.maxRadicals;
   if (fallSpeedEl) fallSpeedEl.value = gameConfig.fallSpeed;
   if (spawnDelayEl) spawnDelayEl.value = gameConfig.spawnDelay;
+  if (keyHintToggleEl) keyHintToggleEl.checked = gameConfig.enableKeyHint;
 }
 
 // 重置为默认配置
@@ -110,6 +115,58 @@ function setupEventListeners() {
   
   // 配置面板事件
   document.getElementById('resetConfigBtn')?.addEventListener('click', resetConfig);
+  
+  // 音量控制事件
+  const volumeSlider = document.getElementById('volumeSlider');
+  
+  if (volumeSlider) {
+    // 加载保存的音量设置
+    const savedVolume = AudioManager.getVolume() * 100;
+    volumeSlider.value = savedVolume;
+    updateVolumeDisplay(savedVolume);
+    
+    volumeSlider.addEventListener('input', (e) => {
+      const volume = parseInt(e.target.value) / 100;
+      AudioManager.setVolume(volume);
+      updateVolumeDisplay(e.target.value);
+    });
+  }
+  
+  if (muteBtn) {
+    muteBtn.addEventListener('click', () => {
+      const isMuted = AudioManager.toggleMute();
+      muteBtn.textContent = isMuted ? '🔇 取消静音' : '🔇 静音';
+      if (!isMuted) {
+        document.getElementById('volumeSlider').value = AudioManager.getVolume() * 100;
+        updateVolumeDisplay(AudioManager.getVolume() * 100);
+      }
+    });
+    
+    // 初始化静音按钮状态
+    if (AudioManager.getIsMuted()) {
+      muteBtn.textContent = '🔇 取消静音';
+    }
+  }
+  
+  // 键位提示开关事件
+  if (keyHintToggle) {
+    keyHintToggle.checked = gameConfig.enableKeyHint;
+    keyHintToggle.addEventListener('change', (e) => {
+      gameConfig.enableKeyHint = e.target.checked;
+      saveConfig();
+      // 重新渲染当前活跃字根
+      refreshActiveRadicals();
+    });
+  }
+  
+  // 移动端音频初始化（在用户首次交互时）
+  document.addEventListener('click', () => {
+    AudioManager.resumeAudioContext();
+  }, { once: true });
+  
+  document.addEventListener('keydown', () => {
+    AudioManager.resumeAudioContext();
+  }, { once: true });
 }
 
 // 显示开始屏幕
@@ -135,6 +192,10 @@ function showStartScreen() {
 // 开始游戏
 function startGame() {
   if (gameState.isActive) return;
+  
+  // 初始化音频管理器（确保音频上下文已激活）
+  AudioManager.init();
+  AudioManager.resumeAudioContext();
   
   gameState.isActive = true;
   gameState.isPaused = false;
@@ -214,9 +275,14 @@ function spawnRadical() {
   element.style.width = gameConfig.radicalSize.width + 'px';
   element.style.height = gameConfig.radicalSize.height + 'px';
   
+  // 根据配置决定是否显示键位提示
+  const keyHintHtml = gameConfig.enableKeyHint 
+    ? `<div class="key-hint">${radical.key.toUpperCase()}</div>` 
+    : '';
+  
   element.innerHTML = `
     <img src="${radical.image}" alt="${radical.name}" class="radical-img">
-    <div class="key-hint">${radical.key.toUpperCase()}</div>
+    ${keyHintHtml}
   `;
   
   // 添加图片加载失败处理
@@ -307,6 +373,11 @@ function checkInput(userInput) {
 function handleCorrectInput(matchedRadical) {
   gameState.correctCount++;
   
+  // 播放正确音效
+  if (gameConfig.enableSoundEffects) {
+    AudioManager.play('correct');
+  }
+  
   // 添加消除动画
   matchedRadical.element.classList.add('eliminated');
   
@@ -326,6 +397,11 @@ function handleCorrectInput(matchedRadical) {
 // 处理错误输入
 function handleWrongInput(userInput) {
   gameState.errorCount++;
+  
+  // 播放错误音效
+  if (gameConfig.enableSoundEffects) {
+    AudioManager.play('incorrect');
+  }
   
   // 记录错误
   recordError('wrong', null, userInput);
@@ -385,6 +461,24 @@ function updateActiveCount() {
   if (activeEl) {
     activeEl.textContent = gameState.activeRadicals.length + '/' + gameConfig.maxRadicals;
   }
+}
+
+// 更新音量显示
+function updateVolumeDisplay(value) {
+  const volumeEl = document.getElementById('volumeValue');
+  if (volumeEl) {
+    volumeEl.textContent = value + '%';
+  }
+}
+
+// 刷新活跃字根的键位提示显示
+function refreshActiveRadicals() {
+  gameState.activeRadicals.forEach(ar => {
+    const keyHintEl = ar.element.querySelector('.key-hint');
+    if (keyHintEl) {
+      keyHintEl.style.display = gameConfig.enableKeyHint ? 'block' : 'none';
+    }
+  });
 }
 
 // 更新按钮状态
