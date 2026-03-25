@@ -120,6 +120,7 @@ function setupEventListeners() {
   
   // 音量控制事件
   const volumeSlider = document.getElementById('volumeSlider');
+  const muteBtn = document.getElementById('muteBtn');
   
   if (volumeSlider) {
     // 加载保存的音量设置
