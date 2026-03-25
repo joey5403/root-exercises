@@ -10,7 +10,7 @@ const defaultConfig = {
   radicalSize: { width: 60, height: 60 },  // 字根图片尺寸
   enableSoundEffects: true,  // 音效开关
   enableMultiRadical: true,  // 多字根模式开关
-  enableKeyHint: false     // 键位提示开关（默认关闭）
+  enableKeyHint: true      // 键位提示开关（默认开启）
 };
 
 // 当前游戏配置（从 defaultConfig 或 localStorage 加载）
@@ -66,11 +66,13 @@ function loadConfigFromUI() {
   const maxRadicals = parseInt(document.getElementById('configMaxRadicals')?.value) || 5;
   const fallSpeed = parseInt(document.getElementById('configFallSpeed')?.value) || 2;
   const spawnDelay = parseInt(document.getElementById('configSpawnDelay')?.value) || 1000;
+  const keyHintToggleEl = document.getElementById('keyHintToggle');
   
   gameConfig.duration = Math.min(30, Math.max(1, duration)) * 60000;
   gameConfig.maxRadicals = Math.min(10, Math.max(1, maxRadicals));
   gameConfig.fallSpeed = Math.min(10, Math.max(1, fallSpeed));
   gameConfig.spawnDelay = Math.min(5000, Math.max(500, spawnDelay));
+  if (keyHintToggleEl) gameConfig.enableKeyHint = keyHintToggleEl.checked;
 }
 
 // 更新 UI 显示配置
