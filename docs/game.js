@@ -149,6 +149,7 @@ function setupEventListeners() {
   }
   
   // 键位提示开关事件
+  const keyHintToggle = document.getElementById('keyHintToggle');
   if (keyHintToggle) {
     keyHintToggle.checked = gameConfig.enableKeyHint;
     keyHintToggle.addEventListener('change', (e) => {

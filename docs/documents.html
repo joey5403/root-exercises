@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="文档系统 - 查看五笔 98 练习文档">
+  <title>文档系统 - 五笔 98</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <h1>📄 文档系统</h1>
+    <div class="header-controls">
+      <a href="index.html" class="btn btn-secondary">返回练习</a>
+      <a href="code-game.html" class="btn btn-primary">🎮 开始游戏</a>
+    </div>
+  </header>
+
+  <div class="usage-instruction">
+    <p>查看五笔 98 练习文档，包含前 500、中 500、后 500、前 1500 共四个文档。</p>
+  </div>
+
+  <main class="main-content">
+    <section class="document-container">
+      <div class="document-tabs">
+        <button class="document-tab active" data-file="前 500.txt">前 500</button>
+        <button class="document-tab" data-file="中 500.txt">中 500</button>
+        <button class="document-tab" data-file="后 500.txt">后 500</button>
+        <button class="document-tab" data-file="前 1500.txt">前 1500</button>
+      </div>
+      
+      <div class="document-info">
+        <h3 id="documentTitle">前 500</h3>
+        <p class="document-stats">共 <span id="charCount">0</span> 个汉字</p>
+      </div>
+      
+      <div id="documentContent" class="document-content">
+        <!-- 文档内容将通过 JavaScript 加载 -->
+      </div>
+      
+      <div class="document-actions">
+        <button id="backToGameBtn" class="btn btn-primary">🎮 返回游戏</button>
+        <a href="index.html" class="btn btn-secondary">返回主页</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="links-section">
+      <h4>友情链接</h4>
+      <div class="friend-links">
+        <a href="https://wubi98.github.io/" target="_blank" rel="noopener noreferrer" class="friend-link">五笔小筑</a>
+        <a href="http://98wb.ysepan.com/" target="_blank" rel="noopener noreferrer" class="friend-link">98 五笔资源库</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="documents.js"></script>
+</body>
+</html>

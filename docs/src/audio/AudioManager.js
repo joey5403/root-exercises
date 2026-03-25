@@ -18,9 +18,9 @@ class AudioManagerClass {
 
     this.isInitialized = true;
     
-    // 预加载音效文件
-    this.loadSound('correct', '/assets/sounds/correct.mp3');
-    this.loadSound('incorrect', '/assets/sounds/incorrect.mp3');
+    // 预加载音效文件（使用相对路径）
+    this.loadSound('correct', 'assets/sounds/correct.mp3');
+    this.loadSound('incorrect', 'assets/sounds/incorrect.mp3');
 
     // 初始化 Web Audio API 作为 fallback
     this.initWebAudioFallback();

@@ -884,3 +884,453 @@ body {
     font-size: 0.85rem;
   }
 }
+
+/* ========================================
+   码表打字游戏样式
+   ======================================== */
+
+/* 下落汉字样式 */
+.falling-char {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, opacity 0.2s;
+  z-index: 10;
+}
+
+.falling-char .char-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2d3748;
+  line-height: 1;
+}
+
+.falling-char .wubi-hint {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  background: #f0f4ff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* 游戏区域 */
+.game-area {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background: #f7fafc;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid #e2e8f0;
+}
+
+/* 游戏画布 */
+.game-canvas {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  position: relative;
+}
+
+/* 结果面板 */
+.result-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.result-panel h2 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+}
+
+.result-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.result-stat {
+  background: #f7fafc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.result-stat .stat-label {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-bottom: 0.5rem;
+}
+
+.result-stat .stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.result-details {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.result-details h3 {
+  font-size: 1.1rem;
+  color: #2d3748;
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+.error-list-scroll {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.error-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.error-item .error-char {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2d3748;
+  min-width: 40px;
+}
+
+.error-item .error-expected {
+  color: #718096;
+  flex: 1;
+  margin-left: 1rem;
+}
+
+.error-item .error-time {
+  color: #a0aec0;
+  font-size: 0.8rem;
+}
+
+.top-error-chars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.top-error-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-error-item .top-error-char {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.top-error-item .top-error-count {
+  font-size: 0.85rem;
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+.result-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* 空状态 */
+.empty {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* 配置面板 */
+.config-panel {
+  background: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.config-item {
+  margin-bottom: 1rem;
+}
+
+.config-item label {
+  display: block;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.config-item input[type="number"],
+.config-item select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.config-item input[type="range"] {
+  width: 100%;
+}
+
+.config-item input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.config-hint {
+  display: block;
+  font-size: 0.85rem;
+  color: #718096;
+  margin-top: 0.25rem;
+}
+
+.btn-small {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+}
+
+.btn-large {
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* 开始屏幕 */
+.start-screen {
+  text-align: center;
+  padding: 2rem;
+}
+
+.start-screen h2 {
+  font-size: 2rem;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.start-screen p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 游戏信息栏 */
+.game-info {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-item .label {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-bottom: 0.25rem;
+}
+
+.info-item .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+/* 文档页面样式 */
+.document-container {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.document-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.document-tab {
+  padding: 0.5rem 1.5rem;
+  background: #f7fafc;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #4a5568;
+  transition: all 0.2s;
+}
+
+.document-tab:hover {
+  background: #e2e8f0;
+}
+
+.document-tab.active {
+  background: #667eea;
+  color: white;
+}
+
+.document-content {
+  background: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-height: 600px;
+  overflow-y: auto;
+  font-size: 1.5rem;
+  line-height: 2;
+  color: #2d3748;
+}
+
+/* 响应式调整 */
+@media (max-width: 900px) {
+  .result-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .game-info {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .result-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .document-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .document-tab {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+}
+
+/* ========================================
+   正确历史显示样式
+   ======================================== */
+
+.history-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-panel .current-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.history-panel .current-input .label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.history-panel .current-input .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #667eea;
+  min-height: 2rem;
+  min-width: 2rem;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background: #f0f4ff;
+  border-radius: 4px;
+}
+
+.history-panel .correct-history {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.history-panel .correct-history .label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.history-panel .history-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: #f7fafc;
+  border-radius: 6px;
+}
+
+.history-list .history-char {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  color: #2d3748;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.history-list .history-char:hover {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  transform: scale(1.1);
+}
+
+.history-list:empty::before {
+  content: '暂无正确记录';
+  color: #a0aec0;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
